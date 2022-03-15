@@ -1,22 +1,16 @@
-workflow "Package with VSCE" {
-  on = "push"
-  resolves = ["VSCE: Publish"]
-}
-
-action "NPM: Install deps" {
-  uses = "actions/npm@33871a7"
-  args = ["install", "--unsafe-perm"]
-}
-
-action "NPM: Compile" {
-  uses = "actions/npm@33871a7"
-  args = "run compile"
-  needs = ["NPM: Install deps"]
-}
-
-action "VSCE: Publish" {
-  uses = "lannonbr/vsce-action@master"
-  args = "publish -p $VSCE_TOKEN"
-  needs = ["NPM: Compile"]
-  secrets = ["q65epvc4npe2helwbitgvlgep62es5sw74kjt6quzjynyjclijvq"]
-}
+on:
+  push:
+    branches:
+      - master
+name: Deploy Extension
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - run: npm install
+      - uses: lannonbr/vsce-action@3.0.0
+        with:
+          args: "publish -p $VSCE_TOKEN"
+        env:
+          VSCE_TOKEN: ${{ q65epvc4npe2helwbitgvlgep62es5sw74kjt6quzjynyjclijvq }}
