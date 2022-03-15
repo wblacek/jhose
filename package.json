@@ -1,0 +1,16 @@
+{
+    "name": "jhose-tes",
+    "displayName": "jhose tes",
+    "publisher": "jhose",
+    "description": "jhose tes",
+    "version": "0.0.1",
+    "engines": {
+        "vscode": "^1.65.0"
+    },
+    "categories": [
+        "Extension Packs"
+    ],
+    "extensionPack": [ 
+        "publisher.extensionName"
+    ]
+}
